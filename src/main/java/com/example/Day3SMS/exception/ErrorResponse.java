@@ -1,45 +1,42 @@
 package com.example.Day3SMS.exception;
 
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice
-public class GlobalExceptionHandler {
+public class ErrorResponse {
+    private int statusCode;
+    private String message;
+    private Map<String, String> errors;
 
-    // Validation errors
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidationErrors(MethodArgumentNotValidException ex) {
-
-        Map<String, String> errorMap = new HashMap<>();
-
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errorMap.put(error.getField(), error.getDefaultMessage())
-        );
-
-        return new ErrorResponse(
-                400,
-                "Validation failed",
-                errorMap
-        );
+    public ErrorResponse() {
     }
 
-    // Student not found
-    @ExceptionHandler(StudentNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleStudentNotFound(StudentNotFoundException ex) {
+    public ErrorResponse(int statusCode, String message, Map<String, String> errors) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.errors = errors;
+    }
 
-        return new ErrorResponse(
-                404,
-                ex.getMessage(),
-                null
-        );
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Map<String, String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(Map<String, String> errors) {
+        this.errors = errors;
     }
 }

@@ -1,19 +1,18 @@
 package com.example.Day3SMS.dto;
 
-//public class StudentResponseDto {
-//}
-//package com.example.Day3SMS.dto;
 public class StudentResponseDto {
 
-    private String id;          // DB se generate hoga
+    private String id;
     private String name;
     private int age;
     private String email;
-    private String message;     // success / info message
+    private String message;
 
+    // Default constructor
     public StudentResponseDto() {
     }
 
+    // Parameterized constructor
     public StudentResponseDto(String id, String name, int age, String email, String message) {
         this.id = id;
         this.name = name;
@@ -22,8 +21,16 @@ public class StudentResponseDto {
         this.message = message;
     }
 
-    // getters and setters
+    // Constructor without message
+    public StudentResponseDto(String id, String name, int age, String email) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.message = null;
+    }
 
+    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -62,5 +69,16 @@ public class StudentResponseDto {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentResponseDto{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
